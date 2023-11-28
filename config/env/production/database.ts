@@ -8,7 +8,7 @@ export default ({ env }) => ({
       user: env("DATABASE_USERNAME", "dbhorses"),
       password: env("DATABASE_PASSWORD", "dbhorses"),
       ssl: {
-        ca: env("DATABASE_CA"),
+        ca: env("DATABASE_CA", false),
       },
     },
     debug: false,
