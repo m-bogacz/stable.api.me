@@ -1,7 +1,5 @@
 export default {
-  //
   graphql: {
-    enabled: true,
     config: {
       endpoint: "/graphql",
       shadowCRUD: true,
@@ -10,6 +8,7 @@ export default {
       amountLimit: 100,
       apolloServer: {
         tracing: false,
+        introspection: true,
       },
     },
   },
