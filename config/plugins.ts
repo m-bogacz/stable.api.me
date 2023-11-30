@@ -1,5 +1,4 @@
 export default {
-  //
   graphql: {
     config: {
       endpoint: "/graphql",

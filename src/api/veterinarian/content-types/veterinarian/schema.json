@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "veterinarians",
+  "info": {
+    "singularName": "veterinarian",
+    "pluralName": "veterinarians",
+    "displayName": "veterinarian"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "string"
+    },
+    "date": {
+      "type": "date"
+    },
+    "executedBy": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": false
+    },
+    "horses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::horse.horse",
+      "mappedBy": "veterinarian"
+    }
+  }
+}

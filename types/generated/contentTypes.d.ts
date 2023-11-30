@@ -362,51 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiHorseHorse extends Schema.CollectionType {
-  collectionName: 'horses';
-  info: {
-    singularName: 'horse';
-    pluralName: 'horses';
-    displayName: 'Horse';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetMinMaxLength<{
-        minLength: 3;
-      }>;
-    slug: Attribute.String & Attribute.Required;
-    profileImage: Attribute.Media & Attribute.Required;
-    photos: Attribute.Media;
-    createAsParent: Attribute.Boolean &
-      Attribute.Required &
-      Attribute.DefaultTo<false>;
-    foaling: Attribute.Date &
-      Attribute.Required &
-      Attribute.DefaultTo<'2023-11-26'>;
-    place: Attribute.String & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::horse.horse',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::horse.horse',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -722,6 +677,248 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiFarrieryFarriery extends Schema.CollectionType {
+  collectionName: 'farrieries';
+  info: {
+    singularName: 'farriery';
+    pluralName: 'farrieries';
+    displayName: 'Farriery';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    slug: Attribute.String;
+    date: Attribute.Date & Attribute.Required;
+    executedBy: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    horses: Attribute.Relation<
+      'api::farriery.farriery',
+      'manyToMany',
+      'api::horse.horse'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::farriery.farriery',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::farriery.farriery',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiHorseHorse extends Schema.CollectionType {
+  collectionName: 'horses';
+  info: {
+    singularName: 'horse';
+    pluralName: 'horses';
+    displayName: 'Horse';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        minLength: 3;
+      }>;
+    slug: Attribute.String & Attribute.Required;
+    profileImage: Attribute.Media & Attribute.Required;
+    createAsParent: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<false>;
+    foaling: Attribute.Date &
+      Attribute.Required &
+      Attribute.DefaultTo<'2023-11-26'>;
+    place: Attribute.String & Attribute.Required;
+    gender: Attribute.Enumeration<['mare', 'gelding', 'stallion']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'mare'>;
+    mother: Attribute.Relation<
+      'api::horse.horse',
+      'oneToOne',
+      'api::horse.horse'
+    >;
+    father: Attribute.Relation<
+      'api::horse.horse',
+      'oneToOne',
+      'api::horse.horse'
+    >;
+    news: Attribute.Relation<'api::horse.horse', 'oneToMany', 'api::new.new'>;
+    veterinarian: Attribute.Relation<
+      'api::horse.horse',
+      'manyToOne',
+      'api::veterinarian.veterinarian'
+    >;
+    vaccinations: Attribute.Relation<
+      'api::horse.horse',
+      'manyToMany',
+      'api::vaccination.vaccination'
+    >;
+    farrieries: Attribute.Relation<
+      'api::horse.horse',
+      'manyToMany',
+      'api::farriery.farriery'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::horse.horse',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::horse.horse',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiNewNew extends Schema.CollectionType {
+  collectionName: 'news';
+  info: {
+    singularName: 'new';
+    pluralName: 'news';
+    displayName: 'News';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    horses: Attribute.Relation<'api::new.new', 'manyToOne', 'api::horse.horse'>;
+    title: Attribute.String & Attribute.Required;
+    slug: Attribute.String;
+    date: Attribute.Date;
+    executedBy: Attribute.String & Attribute.Required;
+    description: Attribute.Text & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::new.new', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::new.new', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTabTab extends Schema.CollectionType {
+  collectionName: 'tabs';
+  info: {
+    singularName: 'tab';
+    pluralName: 'tabs';
+    displayName: 'Tab';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::tab.tab', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::tab.tab', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiVaccinationVaccination extends Schema.CollectionType {
+  collectionName: 'vaccinations';
+  info: {
+    singularName: 'vaccination';
+    pluralName: 'vaccinations';
+    displayName: 'Vaccination';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    slug: Attribute.String;
+    date: Attribute.Date;
+    executedBy: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    horses: Attribute.Relation<
+      'api::vaccination.vaccination',
+      'manyToMany',
+      'api::horse.horse'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::vaccination.vaccination',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::vaccination.vaccination',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiVeterinarianVeterinarian extends Schema.CollectionType {
+  collectionName: 'veterinarians';
+  info: {
+    singularName: 'veterinarian';
+    pluralName: 'veterinarians';
+    displayName: 'veterinarian';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    slug: Attribute.String;
+    date: Attribute.Date;
+    executedBy: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    horses: Attribute.Relation<
+      'api::veterinarian.veterinarian',
+      'oneToMany',
+      'api::horse.horse'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::veterinarian.veterinarian',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::veterinarian.veterinarian',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -732,13 +929,18 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::horse.horse': ApiHorseHorse;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::farriery.farriery': ApiFarrieryFarriery;
+      'api::horse.horse': ApiHorseHorse;
+      'api::new.new': ApiNewNew;
+      'api::tab.tab': ApiTabTab;
+      'api::vaccination.vaccination': ApiVaccinationVaccination;
+      'api::veterinarian.veterinarian': ApiVeterinarianVeterinarian;
     }
   }
 }

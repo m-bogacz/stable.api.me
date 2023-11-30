@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "farrieries",
+  "info": {
+    "singularName": "farriery",
+    "pluralName": "farrieries",
+    "displayName": "Farriery",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "string"
+    },
+    "date": {
+      "type": "date",
+      "required": true
+    },
+    "executedBy": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "horses": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::horse.horse",
+      "inversedBy": "farrieries"
+    }
+  }
+}

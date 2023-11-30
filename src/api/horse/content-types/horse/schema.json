@@ -4,7 +4,8 @@
   "info": {
     "singularName": "horse",
     "pluralName": "horses",
-    "displayName": "Horse"
+    "displayName": "Horse",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -23,22 +24,12 @@
       "required": true
     },
     "profileImage": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
-    },
-    "photos": {
+      "required": true,
       "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
-      "type": "media",
-      "multiple": true
+        "images"
+      ]
     },
     "createAsParent": {
       "type": "boolean",
@@ -53,6 +44,50 @@
     "place": {
       "type": "string",
       "required": true
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "mare",
+        "gelding",
+        "stallion"
+      ],
+      "required": true,
+      "default": "mare"
+    },
+    "mother": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::horse.horse"
+    },
+    "father": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::horse.horse"
+    },
+    "news": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::new.new",
+      "mappedBy": "horses"
+    },
+    "veterinarian": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::veterinarian.veterinarian",
+      "inversedBy": "horses"
+    },
+    "vaccinations": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::vaccination.vaccination",
+      "mappedBy": "horses"
+    },
+    "farrieries": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::farriery.farriery",
+      "mappedBy": "horses"
     }
   }
 }

@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "vaccinations",
+  "info": {
+    "singularName": "vaccination",
+    "pluralName": "vaccinations",
+    "displayName": "Vaccination"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "string"
+    },
+    "date": {
+      "type": "date"
+    },
+    "executedBy": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "horses": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::horse.horse",
+      "inversedBy": "vaccinations"
+    }
+  }
+}
