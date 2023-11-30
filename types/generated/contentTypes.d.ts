@@ -885,7 +885,8 @@ export interface ApiVeterinarianVeterinarian extends Schema.CollectionType {
   info: {
     singularName: 'veterinarian';
     pluralName: 'veterinarians';
-    displayName: 'veterinarian';
+    displayName: 'Veterinarian';
+    description: '';
   };
   options: {
     draftAndPublish: true;

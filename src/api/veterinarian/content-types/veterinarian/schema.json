@@ -4,7 +4,8 @@
   "info": {
     "singularName": "veterinarian",
     "pluralName": "veterinarians",
-    "displayName": "veterinarian"
+    "displayName": "Veterinarian",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
