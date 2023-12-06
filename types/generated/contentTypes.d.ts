@@ -735,7 +735,6 @@ export interface ApiHorseHorse extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
-    slug: Attribute.String & Attribute.Required;
     profileImage: Attribute.Media & Attribute.Required;
     createAsParent: Attribute.Boolean &
       Attribute.Required &
@@ -772,6 +771,13 @@ export interface ApiHorseHorse extends Schema.CollectionType {
       'api::horse.horse',
       'manyToMany',
       'api::farriery.farriery'
+    >;
+    slug_url: Attribute.String & Attribute.Required & Attribute.Unique;
+    slug: Attribute.UID<'api::horse.horse', 'slug_url'>;
+    photos: Attribute.Relation<
+      'api::horse.horse',
+      'oneToMany',
+      'api::photo.photo'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -815,6 +821,44 @@ export interface ApiNewNew extends Schema.CollectionType {
     createdBy: Attribute.Relation<'api::new.new', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::new.new', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPhotoPhoto extends Schema.CollectionType {
+  collectionName: 'photos';
+  info: {
+    singularName: 'photo';
+    pluralName: 'photos';
+    displayName: 'Photo';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    date: Attribute.DateTime;
+    location: Attribute.String;
+    img: Attribute.Media;
+    horse: Attribute.Relation<
+      'api::photo.photo',
+      'manyToOne',
+      'api::horse.horse'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::photo.photo',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::photo.photo',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -939,6 +983,7 @@ declare module '@strapi/types' {
       'api::farriery.farriery': ApiFarrieryFarriery;
       'api::horse.horse': ApiHorseHorse;
       'api::new.new': ApiNewNew;
+      'api::photo.photo': ApiPhotoPhoto;
       'api::tab.tab': ApiTabTab;
       'api::vaccination.vaccination': ApiVaccinationVaccination;
       'api::veterinarian.veterinarian': ApiVeterinarianVeterinarian;
