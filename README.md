@@ -28,6 +28,9 @@ Our system, powered by Strapi CMS, ensures data security, stability, and flexibi
 
 For technical support or any inquiries about the application, please contact us at: [mateuszbogacz.dev@gmail.com].
 
+
+##Started with Strapi
+
 Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
 
 ### `develop`
